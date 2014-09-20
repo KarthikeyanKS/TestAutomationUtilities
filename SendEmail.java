@@ -1,6 +1,5 @@
 //		It sends email with attachment
 
-
 package mslt.verification;
 
 import java.util.Properties;
@@ -21,60 +20,58 @@ import javax.mail.internet.MimeMultipart;
 
 import org.testng.annotations.Test;
 
-public class SendEmail  {
-	
-	@Test 
-	  public void sendemailWithAttachments() {
-	
-		final String username = "k.s.karthikeyan.mitv@gmail.com";
-	    final String password = "Karts008";
+public class SendEmail {
 
-	    Properties props = new Properties();
-	    props.put("mail.smtp.auth", "true");
-	    props.put("mail.smtp.starttls.enable", "true");
-	    props.put("mail.smtp.host", "smtp.gmail.com");
-	    props.put("mail.smtp.port", "587");
+	@Test
+	public void sendemailWithAttachments() {
 
-	    Session session = Session.getInstance(props,
-	            new javax.mail.Authenticator() {
-	                protected PasswordAuthentication getPasswordAuthentication() {
-	                    return new PasswordAuthentication(username, password);
-	                }
-	            });
+		final String username = "YOUR USER NAME";
+		final String password = "YOUR PASSWORD";
 
-	    try {
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
 
-	        Message message = new MimeMessage(session);
-	        message.setFrom(new InternetAddress("k.s.karthikeyan.mitv@gmail.com"));
-	        message.setRecipients(Message.RecipientType.TO,
-	                InternetAddress.parse("k.s.karthikeyan@gmail.com"));
-	        message.setSubject("tvnu Import data");
-	        message.setText("PFA");
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(username, password);
+					}
+				});
 
-	        MimeBodyPart messageBodyPart = new MimeBodyPart();
+		try {
 
-	        Multipart multipart = new MimeMultipart();
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse("STEVE@APPLE.HEAVEN"));
+			message.setSubject("THANK YOU");
+			message.setText("PFA");
 
-	        messageBodyPart = new MimeBodyPart();
-//	        new File("/Users/admin/Documents/tvnu/programs.json").delete();
-//			new File("/Users/admin/Documents/tvnu/channelIds.json").delete();
-	        String file = "/Users/admin/Documents/tvnu/channelIds.json";
-	        String fileName = "channelIds.json";
-	        DataSource source = new FileDataSource(file);
-	        messageBodyPart.setDataHandler(new DataHandler(source));
-	        messageBodyPart.setFileName(fileName);
-	        multipart.addBodyPart(messageBodyPart);
+			MimeBodyPart messageBodyPart = new MimeBodyPart();
 
-	        message.setContent(multipart);
+			Multipart multipart = new MimeMultipart();
 
-	        System.out.println("Sending");
-	        Transport.send(message);
+			messageBodyPart = new MimeBodyPart();
+			String file = "/Users/admin/Documents/THANKYOU.NOTE";
+			String fileName = "THANKYOU.NOTE";
+			DataSource source = new FileDataSource(file);
+			messageBodyPart.setDataHandler(new DataHandler(source));
+			messageBodyPart.setFileName(fileName);
+			multipart.addBodyPart(messageBodyPart);
 
-	        System.out.println("Done");
+			message.setContent(multipart);
 
-	    } catch (MessagingException e) {
-	        e.printStackTrace();
-	    }
-		
-	}	
+			System.out.println("Sending");
+			Transport.send(message);
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+	}
 }
